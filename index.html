@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>QFit Journal v41 — PWA Phone Install</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="assets/icon-192.png" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#061426" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="QFit Journal" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="stage">
+    <section class="start-mockup is-active" id="startScreen" aria-label="Стартовый экран QFit Journal">
+      <img src="assets/start-mockup.png" alt="QFit Journal — стартовый экран" class="start-mockup-img" />
+      <button class="hotspot hotspot-start" id="startBtn" type="button" aria-label="Начать" onclick="if (typeof openApp === 'function') openApp();"></button>
+    </section>
+
+    <section class="phone-shell" id="appShell" aria-label="QFit Journal mobile app">
+      <div class="phone-screen">
+        <div class="status-bar" aria-hidden="true">
+          <span>9:41</span>
+          <span class="status-icons">▮▮▮ 5G ▱</span>
+        </div>
+
+        <section class="screen profile-screen" id="profileScreen">
+          <header class="app-top compact"><button class="back-btn" id="profileBackBtn" type="button">← Старт</button></header>
+          <div class="app-title-row profile-title">
+            <span class="eyebrow">QFIT JOURNAL</span>
+            <h2>Кто тренируется?</h2>
+            <p>Выберите профиль один раз. Дальше на рабочих страницах лишнего переключателя не будет.</p>
+          </div>
+          <div class="profile-options">
+            <button class="profile-card" data-profile-athlete="ruslan" type="button"><span>Профиль</span><strong>Я</strong><small>Мой план, факт и журнал</small></button>
+            <button class="profile-card" data-profile-athlete="arslan" type="button"><span>Профиль</span><strong>Арслан</strong><small>Только его план и история</small></button>
+          </div>
+        </section>
+
+        <section class="screen menu-screen" id="menuScreen">
+          <header class="app-top compact"><button class="back-btn" id="menuBackBtn" type="button">← Профиль</button></header>
+          <div class="app-title-row">
+            <span class="eyebrow">QFIT JOURNAL</span>
+            <h2>Меню</h2>
+            <p>План отдельно, выполнение отдельно, история отдельно.</p>
+          </div>
+          <div class="menu-grid" aria-label="Основные разделы">
+            <button class="menu-card primary" data-open="today" type="button"><span>◴</span><strong>Сегодня</strong><small>Факт и подходы</small></button>
+            <button class="menu-card" data-open="plan" type="button"><span>▦</span><strong>План</strong><small>Текущая и следующая</small></button>
+            <button class="menu-card" data-open="programs" type="button"><span>▤</span><strong>Программы</strong><small>Циклы на 6–30 тренировок</small></button>
+            <button class="menu-card" data-open="journal" type="button"><span>≡</span><strong>Журнал</strong><small>История</small></button>
+            <button class="menu-card" data-open="base" type="button"><span>＋</span><strong>Упражнения</strong><small>База по группам</small></button>
+          </div>
+          <section class="menu-preview">
+            <span>Текущая тренировка</span>
+            <strong id="menuPreviewTitle">Становая + брусья</strong>
+            <small id="menuPreviewText">Источник: План тренировок</small>
+          </section>
+        </section>
+
+        <section class="screen app-screen scrollable" id="todayScreen">
+          <header class="app-top compact sticky-top">
+            <button class="back-btn" id="todayBackBtn" type="button">← Меню</button>
+            <span class="save-state" id="saveState">не сохранено</span>
+          </header>
+          <div class="today-head">
+            <span class="eyebrow">QFIT JOURNAL</span>
+            <h2>Сегодня</h2>
+          </div>
+          <section class="workout-card">
+            <div class="workout-header">
+              <div><h3 id="workoutTitle">Становая + брусья</h3><small id="cycleLabel">Июнь — силовой блок</small></div>
+              <span class="cycle-chip">план</span>
+            </div>
+            <div class="summary-strip" id="workoutMetrics"></div>
+            <div class="exercise-list" id="exerciseList"></div>
+            <label class="general-note-label" for="generalComment">Комментарий к тренировке</label>
+            <textarea id="generalComment" class="general-comment" rows="2" placeholder="Например: тяжело, болел локоть, сделал откат"></textarea>
+            <button class="primary-btn save-btn" id="saveWorkoutBtn" type="button">Сохранить тренировку <span>✓</span></button>
+          </section>
+        </section>
+
+        <section class="screen sets-screen scrollable" id="setsScreen">
+          <header class="app-top compact sticky-top"><button class="back-btn" id="setsBackBtn" type="button">← Сегодня</button><span class="save-state">корректировка</span></header>
+          <div class="sets-title-row"><span class="eyebrow" id="editModeLabel">КОРРЕКТИРОВКА</span><h2 id="setsExerciseName">Становая тяга</h2><p>План: <strong id="setsPlanLabel">135 кг × 5 × 5</strong></p></div>
+          <section class="sets-summary" id="setsSummary"></section>
+          <section class="sets-list" id="setsList"></section>
+          <button class="ghost-btn full" id="fillPlanBtn" type="button">Заполнить по плану</button>
+          <button class="ghost-btn full" id="addSetBtn" type="button">+ Добавить подход</button>
+          <label class="general-note-label" for="exerciseComment">Общий комментарий к упражнению</label>
+          <textarea id="exerciseComment" class="general-comment" rows="2" placeholder="Например: 3-й подход тяжело, снизил вес"></textarea>
+          <button class="primary-btn save-btn" id="setsDoneBtn" type="button">Готово <span>✓</span></button>
+        </section>
+
+        <section class="screen plan-screen scrollable" id="planScreen">
+          <header class="app-top compact sticky-top"><button class="back-btn" data-back-menu type="button">← Меню</button></header>
+          <div class="app-title-row source-head"><span class="eyebrow">QFIT JOURNAL</span><h2>План</h2><p>Сверху — текущая тренировка, ниже — следующая. Без дат: порядок важнее календаря.</p></div>
+          <div class="plan-two" id="planTwoList"></div>
+          <div class="plan-rest" id="planRestList"></div>
+        </section>
+
+        <section class="screen plan-edit-screen scrollable" id="planEditScreen">
+          <header class="app-top compact sticky-top"><button class="back-btn" id="planEditBackBtn" type="button">← План</button><span class="save-state" id="planEditState">редактирование</span></header>
+          <div class="app-title-row edit-head"><span class="eyebrow">ПЛАН ТРЕНИРОВКИ</span><h2 id="planEditHeading">Тренировка</h2><p>Числа вводятся отдельно: вес, подходы, повторы, раунды, минуты. Так КПШ и тоннаж считаются нормально.</p></div>
+          <div class="plan-edit-list" id="planEditExercises"></div>
+          <button class="ghost-btn full" id="planAddExerciseBtn" type="button">+ Добавить упражнение</button>
+          <button class="primary-btn save-btn" id="planSaveBtn" type="button">Сохранить изменения <span>✓</span></button>
+          <button class="ghost-btn full" id="planSetTodayBtn" type="button">Сделать тренировкой на сегодня</button>
+        </section>
+
+        <section class="screen saved-screen scrollable" id="savedScreen">
+          <header class="app-top compact sticky-top"><button class="back-btn" data-back-menu type="button">← Меню</button><span class="save-state">сохранено</span></header>
+          <div class="app-title-row"><span class="eyebrow">QFIT JOURNAL</span><h2>Тренировка сохранена</h2><p>Итоги тренировки сохранены в журнал. Дальше можно открыть журнал или перейти к следующей тренировке.</p></div>
+          <div id="savedSummary"></div>
+          <button class="primary-btn save-btn" data-open="journal" type="button">Открыть журнал <span>→</span></button>
+          <button class="ghost-btn full" data-open="today" type="button">Перейти к следующей тренировке</button>
+          <button class="ghost-btn full" data-back-menu type="button">Вернуться в меню</button>
+        </section>
+
+        <section class="screen programs-screen scrollable" id="programsScreen">
+          <header class="app-top compact sticky-top">
+            <button class="back-btn" data-back-menu type="button">← Меню</button>
+          </header>
+
+          <div class="app-title-row">
+            <span class="eyebrow">QFIT JOURNAL</span>
+            <h2>Программы</h2>
+            <p>Создавайте новые программы и открывайте сохранённые.</p>
+          </div>
+
+          <div class="program-home-actions simple-program-home">
+            <button class="program-home-btn primary" id="openSimpleProgramCreateBtn" type="button">
+              <strong>Создать программу</strong>
+              <small>Название программы и список упражнений</small>
+            </button>
+          </div>
+
+          <div class="simple-section-title">Сохранённые программы</div>
+          <div class="program-list" id="programList"></div>
+        </section>
+
+        <section class="screen program-detail-screen scrollable" id="programDetailScreen">
+          <header class="app-top compact sticky-top">
+            <button class="back-btn" id="programDetailBackBtn" type="button">← Программы</button>
+            <span class="save-state" id="programDetailState">шаг 1</span>
+          </header>
+
+          <div class="app-title-row" id="simpleProgramTitleBlock">
+            <span class="eyebrow">ПРОГРАММА</span>
+            <h2 id="simpleProgramScreenTitle">Создать программу</h2>
+            <p id="simpleProgramScreenSubtitle">Шаг 1: введите название программы и добавьте упражнения из базы.</p>
+          </div>
+
+          <section class="program-card simple-program-card" id="simpleProgramStep1">
+            <label>
+              Название программы
+              <input id="simpleProgramNameInput" class="edit-input" type="text" placeholder="Например: Сила 1">
+            </label>
+
+            <label>
+              Выбор упражнения
+              <div class="program-picker-wrap">
+                <input
+                  id="simpleProgramExerciseInput"
+                  class="edit-input"
+                  type="text"
+                  autocomplete="off"
+                  placeholder="Начните вводить упражнение"
+                >
+                <div id="simpleProgramExerciseSuggest" class="program-picker-results"></div>
+              </div>
+            </label>
+
+            <div class="workout-ex-list" id="simpleProgramExerciseList"></div>
+
+            <button class="primary-btn save-btn" id="goSimpleProgramDaysBtn" type="button">
+              Далее <span>→</span>
+            </button>
+          </section>
+        </section>
+
+        <section class="screen program-days-screen scrollable" id="programDaysScreen">
+          <header class="app-top compact sticky-top">
+            <button class="back-btn" id="programDaysBackBtn" type="button">← Упражнения</button>
+            <span class="save-state">шаг 2</span>
+          </header>
+
+          <div class="app-title-row">
+            <span class="eyebrow">ПРОГРАММА</span>
+            <h2>Разложить по дням</h2>
+            <p>Шаг 2: перенесите упражнения в тренировочные дни 2×2. Порядок меняется перетаскиванием мышкой или пальцем.</p>
+          </div>
+
+          <section class="program-card simple-program-card">
+            <div class="simple-section-title">Выбранные упражнения</div>
+            <div class="simple-pool-list" id="simpleProgramPoolList"></div>
+
+            <div class="simple-section-title">Тренировочные дни 2×2</div>
+            <div class="simple-days-grid" id="simpleProgramDaysGrid"></div>
+
+            <button class="primary-btn save-btn" id="goSimpleProgramLoadsBtn" type="button">
+              Далее <span>→</span>
+            </button>
+            <button class="ghost-btn full" id="backSimpleProgramToExercisesBtn" type="button">← Назад к выбору упражнений</button>
+          </section>
+        </section>
+
+        <section class="screen program-load-screen scrollable" id="programLoadScreen">
+          <header class="app-top compact sticky-top">
+            <button class="back-btn" id="programLoadsBackBtn" type="button">← Дни</button>
+            <span class="save-state">шаг 3</span>
+          </header>
+
+          <div class="app-title-row">
+            <span class="eyebrow">ПРОГРАММА</span>
+            <h2>Нагрузки</h2>
+            <p>Шаг 3: задайте длину прогрессии. Нажмите на упражнение, чтобы открыть прогрессию. В каждой строке можно раскрыть подробные подходы.</p>
+          </div>
+
+          <section class="program-card simple-program-card">
+            <label>
+              Количество строк прогрессии
+              <input id="simpleProgramTotalTrainingsInput" class="edit-input" type="number" min="1" max="60" step="1" value="4">
+            </label>
+            <small class="field-hint">Например, 5 строк — у каждого упражнения откроется таблица №1–№5. Если подходы разные, раскройте строку кнопкой «подходы».</small>
+          </section>
+
+          <div id="simpleProgramLoadsPanel"></div>
+
+          <button class="primary-btn save-btn" id="saveSimpleProgramBtn" type="button">
+            Сохранить программу <span>✓</span>
+          </button>
+          <button class="ghost-btn full" id="backSimpleProgramToDaysBtn" type="button">← Назад к распределению</button>
+        </section>
+
+        <section class="screen journal-screen scrollable" id="journalScreen">
+          <header class="app-top compact sticky-top"><button class="back-btn" data-back-menu type="button">← Меню</button></header>
+          <div class="app-title-row"><span class="eyebrow">QFIT JOURNAL</span><h2>Журнал</h2><p>История по выбранному профилю.</p></div>
+          <div class="journal-list" id="journalList"></div>
+        </section>
+
+        <section class="screen exercise-library-screen scrollable" id="baseScreen">
+          <header class="app-top compact sticky-top"><button class="back-btn" data-back-menu type="button">← Меню</button></header>
+          <div class="app-title-row"><span class="eyebrow">QFIT JOURNAL</span><h2>Упражнения</h2><p>Справочник по группам мышц. Из него выбираются упражнения в плане.</p></div>
+          <div class="muscle-grid" id="muscleGrid"></div>
+          <div id="exerciseGroupPanel"></div>
+        </section>
+      </div>
+    </section>
+  </main>
+  <datalist id="exerciseOptions"></datalist>
+  <script src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch((error) => console.warn('Service worker registration failed:', error));
+      });
+    }
+  </script>
+</body>
+</html>
