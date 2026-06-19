@@ -1,4 +1,4 @@
-const CACHE_NAME = 'qfit-journal-v42-mobile-fullscreen';
+const CACHE_NAME = 'qfit-journal-v43-real-mobile-start';
 const ASSETS = [
   './',
   './index.html',

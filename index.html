@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>QFit Journal v42 — Mobile Fullscreen</title>
+  <title>QFit Journal v43 — Real Mobile Start</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="assets/icon-192.png" />
   <link rel="manifest" href="manifest.json" />
@@ -18,6 +18,38 @@
     <section class="start-mockup is-active" id="startScreen" aria-label="Стартовый экран QFit Journal">
       <img src="assets/start-mockup.png" alt="QFit Journal — стартовый экран" class="start-mockup-img" />
       <button class="hotspot hotspot-start" id="startBtn" type="button" aria-label="Начать" onclick="if (typeof openApp === 'function') openApp();"></button>
+
+      <div class="mobile-start-ui" aria-hidden="true">
+        <div class="mobile-start-inner">
+          <div class="mobile-start-top">
+            <span>9:41</span>
+            <span>▮▮▮ 5G ▱</span>
+          </div>
+
+          <div class="mobile-start-brand">
+            <img src="assets/qfit-logo.svg" alt="" class="mobile-start-logo" />
+            <h1><span>QFit</span> Journal</h1>
+            <i></i>
+          </div>
+
+          <div class="mobile-start-copy">
+            <h2>Цифровой дневник тренировок,<br>программ и прогресса</h2>
+            <p>Планируйте тренировки, собирайте программы из базы упражнений и отслеживайте результаты каждый день.</p>
+          </div>
+
+          <div class="mobile-start-hero" aria-hidden="true"></div>
+
+          <div class="mobile-start-features">
+            <div><strong>▣</strong><span>Планируйте<br>тренировки</span></div>
+            <div><strong>▥</strong><span>Собирайте<br>программы</span></div>
+            <div><strong>↗</strong><span>Отслеживайте<br>прогресс</span></div>
+          </div>
+
+          <button class="mobile-start-btn" type="button" onclick="if (typeof openApp === 'function') openApp();">Начать</button>
+
+          <div class="mobile-start-note">▯ Сначала для телефона. В дальнейшем — веб-версия.</div>
+        </div>
+      </div>
     </section>
 
     <section class="phone-shell" id="appShell" aria-label="QFit Journal mobile app">
