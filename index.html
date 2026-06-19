@@ -3,23 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>QFit Journal v43 — Real Mobile Start</title>
+  <title>QFit Journal v44 — No Mockup Cache Fix</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="assets/icon-192.png" />
-  <link rel="manifest" href="manifest.json" />
+  <link rel="manifest" href="manifest.json?v=44" />
   <meta name="theme-color" content="#061426" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-title" content="QFit Journal" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    /* v44 аварийный стиль: старт больше не PNG-макет телефона */
+    .start-mockup-img,.hotspot-start{display:none!important;}
+    .mobile-start-ui{display:block!important;}
+  </style>
+  <link rel="stylesheet" href="styles.css?v=44" />
 </head>
 <body>
   <main class="stage">
     <section class="start-mockup is-active" id="startScreen" aria-label="Стартовый экран QFit Journal">
-      <img src="assets/start-mockup.png" alt="QFit Journal — стартовый экран" class="start-mockup-img" />
-      <button class="hotspot hotspot-start" id="startBtn" type="button" aria-label="Начать" onclick="if (typeof openApp === 'function') openApp();"></button>
-
-      <div class="mobile-start-ui" aria-hidden="true">
+      <div class="mobile-start-ui">
         <div class="mobile-start-inner">
           <div class="mobile-start-top">
             <span>9:41</span>
@@ -284,7 +287,7 @@
     </section>
   </main>
   <datalist id="exerciseOptions"></datalist>
-  <script src="app.js"></script>
+  <script src="app.js?v=44"></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
