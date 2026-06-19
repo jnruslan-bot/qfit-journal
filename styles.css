@@ -688,3 +688,119 @@
 @media (max-height:760px){
   .matrix-readonly{min-height:30px;font-size:10.5px;padding:1px 2px;}
 }
+
+
+/* v42 — mobile fullscreen: убираем «телефон внутри телефона» на реальном телефоне */
+@media (max-width: 768px) {
+  :root {
+    --bg: #061426;
+  }
+
+  html,
+  body {
+    width: 100%;
+    min-width: 0;
+    height: 100%;
+    min-height: 100dvh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: #061426 !important;
+    overscroll-behavior: none;
+  }
+
+  body {
+    position: fixed;
+    inset: 0;
+  }
+
+  .stage {
+    width: 100vw !important;
+    height: 100dvh !important;
+    min-height: 100dvh !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: block !important;
+    background: #061426 !important;
+    overflow: hidden !important;
+  }
+
+  .phone-shell {
+    width: 100vw !important;
+    height: 100dvh !important;
+    max-width: none !important;
+    max-height: none !important;
+    aspect-ratio: auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background: #061426 !important;
+  }
+
+  .phone-screen {
+    width: 100vw !important;
+    height: 100dvh !important;
+    min-height: 100dvh !important;
+    border-radius: 0 !important;
+    overflow: hidden !important;
+    background: radial-gradient(circle at 50% 0%, #0d304a 0%, #071c31 34%, #030b16 100%) !important;
+    box-shadow: none !important;
+  }
+
+  .status-bar {
+    height: calc(34px + env(safe-area-inset-top)) !important;
+    padding-top: env(safe-area-inset-top) !important;
+    padding-left: calc(16px + env(safe-area-inset-left)) !important;
+    padding-right: calc(16px + env(safe-area-inset-right)) !important;
+  }
+
+  .screen {
+    width: 100% !important;
+    height: calc(100dvh - 34px - env(safe-area-inset-top)) !important;
+    min-height: 0 !important;
+    padding-left: calc(14px + env(safe-area-inset-left)) !important;
+    padding-right: calc(14px + env(safe-area-inset-right)) !important;
+    padding-bottom: calc(18px + env(safe-area-inset-bottom)) !important;
+    overflow: hidden !important;
+  }
+
+  .screen.scrollable {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .menu-preview {
+    left: calc(14px + env(safe-area-inset-left)) !important;
+    right: calc(14px + env(safe-area-inset-right)) !important;
+    bottom: calc(14px + env(safe-area-inset-bottom)) !important;
+  }
+
+  .start-mockup {
+    width: 100vw !important;
+    height: 100dvh !important;
+    max-width: none !important;
+    max-height: none !important;
+    aspect-ratio: auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    filter: none !important;
+    background: #061426 !important;
+    overflow: hidden !important;
+  }
+
+  .start-mockup-img {
+    width: 100vw !important;
+    height: 100dvh !important;
+    object-fit: cover !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .hotspot-start {
+    left: 16% !important;
+    top: 76% !important;
+    width: 68% !important;
+    height: 8% !important;
+  }
+}
