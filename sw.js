@@ -1,10 +1,16 @@
-const CACHE_NAME = 'qfit-journal-v50-start-page-fix';
+// Версия кэша берётся из строки запроса при регистрации (?v=NN),
+// поэтому достаточно один раз поменять номер версии в index.html —
+// и sw.js, и manifest.json, и сам кэш всегда останутся синхронны.
+const SW_URL = new URL(self.location.href);
+const VERSION = SW_URL.searchParams.get('v') || 'dev';
+const CACHE_NAME = `qfit-journal-v${VERSION}`;
+
 const ASSETS = [
   './',
-  './index.html?v=49',
-  './styles.css?v=49',
-  './app.js?v=49',
-  './manifest.json?v=49',
+  `./index.html?v=${VERSION}`,
+  `./styles.css?v=${VERSION}`,
+  `./app.js?v=${VERSION}`,
+  `./manifest.json?v=${VERSION}`,
   './assets/app-icon.svg',
   './assets/favicon.svg',
   './assets/gym-bg.svg',
@@ -41,7 +47,9 @@ self.addEventListener('fetch', (event) => {
         return response;
       })
       .catch(() => {
-        if (isNavigation) return caches.match('./index.html?v=49').then((cached) => cached || caches.match('./'));
+        if (isNavigation) {
+          return caches.match(`./index.html?v=${VERSION}`).then((cached) => cached || caches.match('./'));
+        }
         return caches.match(request);
       })
   );

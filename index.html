@@ -6,7 +6,7 @@
   <title>QFit Journal v50 — Mobile Layout Restore</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="assets/icon-192.png" />
-  <link rel="manifest" href="manifest.json?v=49" />
+  <link rel="manifest" href="manifest.json?v=50" />
   <meta name="theme-color" content="#061426" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-title" content="QFit Journal" />
@@ -17,7 +17,7 @@
     .start-mockup-img,.hotspot-start{display:none!important;}
     .mobile-start-ui{display:block!important;}
   </style>
-  <link rel="stylesheet" href="styles.css?v=49" />
+  <link rel="stylesheet" href="styles.css?v=50" />
   <script>
     // v50: cache-clean helper. Does not touch localStorage data.
     if (new URLSearchParams(location.search).has('clear')) {
@@ -294,7 +294,7 @@
     </section>
   </main>
   <datalist id="exerciseOptions"></datalist>
-  <script src="app.js?v=49"></script>
+  <script src="app.js?v=50"></script>
   <script>
     (function () {
       const params = new URLSearchParams(location.search);
@@ -305,14 +305,14 @@
         ]).then(() => {
           params.delete('clear');
           params.delete('resetCache');
-          params.set('v', '46');
+          params.set('v', '50');
           location.replace(location.pathname + '?' + params.toString());
         });
       }
     })();
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=46').catch((error) => console.warn('Service worker registration failed:', error));
+        navigator.serviceWorker.register('./sw.js?v=50').catch((error) => console.warn('Service worker registration failed:', error));
       });
     }
   </script>
