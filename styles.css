@@ -2063,3 +2063,463 @@ html, body {
     bottom: calc(14px + env(safe-area-inset-bottom)) !important;
   }
 }
+
+
+
+/* =========================================================
+   v52 — REAL RESPONSIVE ARCHITECTURE FIX
+   Один финальный слой. 
+   1) Web/Desktop = нормальная веб-страница, НЕ телефон-макет.
+   2) Phone/PWA = полноэкранное приложение, НЕ телефон внутри телефона.
+   3) Старт = настоящий HTML/CSS, НЕ картинка со встроенным телефоном.
+   ========================================================= */
+
+/* Базовая защита */
+html,
+body {
+  width: 100% !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: #061426 !important;
+  color: var(--white) !important;
+  overflow-x: hidden !important;
+  position: static !important;
+}
+
+body {
+  min-height: 100svh !important;
+  min-height: 100dvh !important;
+}
+
+button,
+input,
+textarea,
+select {
+  font-size: 16px !important; /* чтобы мобильный браузер не зумил поля */
+}
+
+/* Убираем старую PNG-архитектуру */
+.start-mockup-img,
+.hotspot,
+.hotspot-start,
+.hotspot-login {
+  display: none !important;
+  pointer-events: none !important;
+}
+
+/* Общая оболочка: больше не "телефон", а экран приложения */
+.stage {
+  width: 100% !important;
+  min-height: 100svh !important;
+  min-height: 100dvh !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: block !important;
+  place-items: unset !important;
+  overflow: hidden !important;
+  background:
+    radial-gradient(circle at 50% -10%, rgba(28,96,142,.38), transparent 42%),
+    linear-gradient(180deg, #071d33 0%, #04101f 54%, #020913 100%) !important;
+}
+
+.start-mockup,
+.phone-shell {
+  width: 100% !important;
+  height: 100svh !important;
+  height: 100dvh !important;
+  max-width: none !important;
+  max-height: none !important;
+  aspect-ratio: auto !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  overflow: hidden !important;
+  filter: none !important;
+}
+
+.start-mockup { display: none !important; position: relative !important; }
+.start-mockup.is-active { display: block !important; }
+.phone-shell { display: none !important; }
+.phone-shell.is-active { display: block !important; }
+
+.phone-screen,
+.mobile-start-ui {
+  position: relative !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100svh !important;
+  height: 100dvh !important;
+  min-height: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  overflow: hidden !important;
+  background:
+    radial-gradient(circle at 50% 0%, #0d304a 0%, #071c31 34%, #030b16 100%) !important;
+  color: #fff !important;
+}
+
+/* Стартовый экран: реальная разметка, не картинка */
+.start-mockup .mobile-start-ui {
+  display: block !important;
+  background-image: none !important;
+  background-color: transparent !important;
+}
+
+.start-mockup .mobile-start-inner {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  max-width: 520px !important;
+  margin: 0 auto !important;
+  padding:
+    max(14px, env(safe-area-inset-top))
+    20px
+    max(18px, env(safe-area-inset-bottom)) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: clamp(8px, 2vh, 18px) !important;
+  overflow: hidden !important;
+  background: transparent !important;
+  isolation: isolate !important;
+}
+
+.start-mockup .mobile-start-inner::before {
+  content: "" !important;
+  display: block !important;
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 18% !important;
+  height: 28% !important;
+  background: url("assets/gym-bg.svg") center / cover no-repeat !important;
+  opacity: .42 !important;
+  z-index: -2 !important;
+  pointer-events: none !important;
+}
+
+.start-mockup .mobile-start-inner::after {
+  content: "" !important;
+  display: block !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background:
+    linear-gradient(180deg, rgba(2,9,19,0) 0%, rgba(2,9,19,.15) 42%, rgba(2,9,19,.86) 78%, rgba(2,9,19,.94) 100%),
+    radial-gradient(circle at 12% 13%, rgba(50,229,238,.14), transparent 18%) !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+}
+
+.start-mockup .mobile-start-top,
+.start-mockup .mobile-start-brand,
+.start-mockup .mobile-start-copy,
+.start-mockup .mobile-start-hero,
+.start-mockup .mobile-start-features,
+.start-mockup .mobile-start-note {
+  display: revert !important;
+  content: normal !important;
+}
+
+.start-mockup .mobile-start-top {
+  width: 100% !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  font-size: 12px !important;
+  line-height: 1 !important;
+  font-weight: 900 !important;
+  opacity: .92 !important;
+  flex: 0 0 auto !important;
+}
+
+.start-mockup .mobile-start-brand {
+  width: 100% !important;
+  display: grid !important;
+  justify-items: center !important;
+  gap: 3px !important;
+  margin: 0 !important;
+  flex: 0 0 auto !important;
+}
+
+.start-mockup .mobile-start-logo {
+  display: block !important;
+  width: clamp(88px, 25vw, 132px) !important;
+  max-width: 132px !important;
+  height: auto !important;
+  filter: drop-shadow(0 0 22px rgba(50,229,238,.24)) !important;
+}
+
+.start-mockup .mobile-start-brand h1 {
+  margin: -4px 0 0 !important;
+  color: #fff !important;
+  font-size: clamp(34px, 9vw, 54px) !important;
+  line-height: .96 !important;
+  font-weight: 950 !important;
+  letter-spacing: -1.2px !important;
+  text-align: center !important;
+}
+
+.start-mockup .mobile-start-brand h1 span { color: #54f4ee !important; }
+
+.start-mockup .mobile-start-brand i {
+  display: block !important;
+  width: 48px !important;
+  height: 3px !important;
+  margin-top: 9px !important;
+  border-radius: 999px !important;
+  background: #ffd84d !important;
+}
+
+.start-mockup .mobile-start-copy {
+  width: 100% !important;
+  text-align: center !important;
+  flex: 0 0 auto !important;
+}
+
+.start-mockup .mobile-start-copy h2 {
+  margin: 0 !important;
+  color: rgba(255,255,255,.95) !important;
+  font-size: clamp(18px, 4.8vw, 26px) !important;
+  line-height: 1.18 !important;
+  font-weight: 850 !important;
+}
+
+.start-mockup .mobile-start-copy p {
+  max-width: 360px !important;
+  margin: 10px auto 0 !important;
+  color: rgba(221,232,243,.88) !important;
+  font-size: clamp(13px, 3.4vw, 17px) !important;
+  line-height: 1.36 !important;
+  font-weight: 550 !important;
+}
+
+.start-mockup .mobile-start-hero {
+  display: block !important;
+  width: 100% !important;
+  flex: 1 1 auto !important;
+  min-height: 90px !important;
+  background: transparent !important;
+}
+
+.start-mockup .mobile-start-features {
+  width: 100% !important;
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  flex: 0 0 auto !important;
+  border: 1px solid rgba(126,185,220,.25) !important;
+  background: rgba(10,30,52,.68) !important;
+  backdrop-filter: blur(10px) !important;
+  border-radius: 18px !important;
+  overflow: hidden !important;
+  box-shadow: 0 18px 40px rgba(0,0,0,.20) !important;
+}
+
+.start-mockup .mobile-start-features div {
+  min-height: clamp(62px, 10vh, 82px) !important;
+  padding: 8px 4px !important;
+  display: grid !important;
+  justify-items: center !important;
+  align-content: center !important;
+  gap: 5px !important;
+  border-right: 1px solid rgba(126,185,220,.19) !important;
+  text-align: center !important;
+}
+
+.start-mockup .mobile-start-features div:last-child { border-right: 0 !important; }
+
+.start-mockup .mobile-start-features strong {
+  color: #43eff1 !important;
+  font-size: clamp(20px, 5vw, 26px) !important;
+  line-height: 1 !important;
+}
+
+.start-mockup .mobile-start-features span {
+  color: rgba(255,255,255,.88) !important;
+  font-size: clamp(11px, 3vw, 14px) !important;
+  line-height: 1.14 !important;
+  font-weight: 800 !important;
+}
+
+.start-mockup .mobile-start-btn {
+  position: static !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: clamp(46px, 7vh, 58px) !important;
+  max-height: none !important;
+  padding: 0 18px !important;
+  margin: 0 !important;
+  flex: 0 0 auto !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: linear-gradient(90deg, #68fff5, #18cce9) !important;
+  color: #062034 !important;
+  text-shadow: none !important;
+  opacity: 1 !important;
+  font-size: clamp(17px, 4.4vw, 22px) !important;
+  line-height: 1 !important;
+  font-weight: 950 !important;
+  box-shadow: 0 14px 34px rgba(23,206,233,.22) !important;
+  z-index: 10 !important;
+}
+
+.start-mockup .mobile-start-note {
+  width: 100% !important;
+  display: block !important;
+  color: rgba(221,232,243,.70) !important;
+  font-size: clamp(10px, 2.8vw, 14px) !important;
+  line-height: 1.2 !important;
+  text-align: center !important;
+  flex: 0 0 auto !important;
+}
+
+/* Рабочие экраны */
+.status-bar {
+  display: none !important; /* на реальном телефоне свой статус-бар, на вебе фейковый не нужен */
+}
+
+.phone-screen .screen {
+  width: 100% !important;
+  height: 100svh !important;
+  height: 100dvh !important;
+  max-height: 100dvh !important;
+  min-height: 0 !important;
+  padding:
+    max(12px, env(safe-area-inset-top))
+    max(14px, env(safe-area-inset-right))
+    max(18px, env(safe-area-inset-bottom))
+    max(14px, env(safe-area-inset-left)) !important;
+  overflow: hidden !important;
+}
+
+.phone-screen .screen.scrollable {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+
+/* Контент не размазываем на огромных мониторах */
+.phone-screen .screen > * {
+  max-width: 720px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.menu-preview {
+  left: 50% !important;
+  right: auto !important;
+  width: min(720px, calc(100% - 28px - env(safe-area-inset-left) - env(safe-area-inset-right))) !important;
+  transform: translateX(-50%) !important;
+  bottom: max(14px, env(safe-area-inset-bottom)) !important;
+}
+
+/* Desktop/web: именно веб, не телефон */
+@media (min-width: 901px) and (hover: hover) and (pointer: fine) {
+  html,
+  body {
+    height: auto !important;
+    overflow: auto !important;
+    background:
+      radial-gradient(circle at 50% -10%, rgba(28,96,142,.24), transparent 46%),
+      linear-gradient(180deg, #071d33 0%, #04101f 54%, #020913 100%) !important;
+  }
+
+  .stage,
+  .start-mockup,
+  .phone-shell,
+  .phone-screen,
+  .mobile-start-ui {
+    height: 100vh !important;
+    min-height: 720px !important;
+  }
+
+  .phone-screen .screen {
+    height: 100vh !important;
+    min-height: 720px !important;
+    padding: 26px 32px 28px !important;
+  }
+
+  .app-title-row h2,
+  .today-head h2,
+  .sets-title-row h2 {
+    font-size: clamp(34px, 3vw, 54px) !important;
+  }
+
+  .menu-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+
+  .menu-card:nth-child(3) {
+    grid-column: auto !important;
+  }
+}
+
+/* Mobile: клавиатура должна давать прокрутку, а не ломать масштаб */
+@media (max-width: 900px), (hover: none), (pointer: coarse) {
+  html,
+  body {
+    height: 100% !important;
+    min-height: 100svh !important;
+    min-height: 100dvh !important;
+    overflow: hidden !important;
+    position: fixed !important;
+    inset: 0 !important;
+  }
+
+  .phone-screen .screen {
+    padding-top: calc(10px + env(safe-area-inset-top)) !important;
+  }
+
+  .app-title-row h2,
+  .today-head h2,
+  .sets-title-row h2 {
+    font-size: clamp(28px, 8vw, 38px) !important;
+  }
+
+  .app-title-row p,
+  .sets-title-row p {
+    font-size: 13px !important;
+  }
+
+  .profile-card strong {
+    font-size: clamp(24px, 7vw, 34px) !important;
+  }
+
+  .menu-card strong {
+    font-size: 17px !important;
+  }
+
+  .screen:has(input:focus),
+  .screen:has(textarea:focus),
+  .screen:has(select:focus) {
+    overflow-y: auto !important;
+    padding-bottom: calc(320px + env(safe-area-inset-bottom)) !important;
+  }
+
+  .sticky-top {
+    top: 0 !important;
+  }
+}
+
+/* Маленькие телефоны */
+@media (max-width: 380px), (max-height: 720px) {
+  .start-mockup .mobile-start-inner {
+    gap: 7px !important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  .start-mockup .mobile-start-logo { width: 82px !important; }
+  .start-mockup .mobile-start-brand h1 { font-size: 31px !important; }
+  .start-mockup .mobile-start-copy h2 { font-size: 16px !important; }
+  .start-mockup .mobile-start-copy p { font-size: 12px !important; margin-top: 7px !important; }
+  .start-mockup .mobile-start-hero { min-height: 54px !important; }
+  .start-mockup .mobile-start-features div { min-height: 56px !important; padding: 6px 4px !important; }
+  .start-mockup .mobile-start-btn { min-height: 44px !important; font-size: 17px !important; }
+  .start-mockup .mobile-start-note { font-size: 10px !important; }
+}
