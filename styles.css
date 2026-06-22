@@ -1669,7 +1669,7 @@ html, body {
 
 
 /* =========================================================
-   v49 — START PAGE RESTORE FIX
+   v50 — MOBILE LAYOUT RESTORE
    Исправляет испорченный первый экран: вместо конфликтующего
    HTML-лейаута используем стабильный стартовый арт как фон.
    Кнопка "Начать" остаётся настоящей кнопкой поверх изображения.
@@ -1891,5 +1891,175 @@ html, body {
   .phone-screen .screen.scrollable {
     overflow-y: auto !important;
     -webkit-overflow-scrolling: touch !important;
+  }
+}
+
+/* =========================================================
+   v50 — MOBILE LAYOUT RESTORE
+   Жестко исправляет телефон: если устройство сенсорное или экран
+   мобильный — никакого белого фона, никакого телефона внутри телефона.
+   На ПК с мышью остается аккуратный телефон-макет по центру.
+   ========================================================= */
+@media (max-width: 900px), (hover: none), (pointer: coarse) {
+  html,
+  body {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100svh !important;
+    min-height: 100dvh !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    position: fixed !important;
+    inset: 0 !important;
+    background: #061426 !important;
+    overscroll-behavior: none !important;
+  }
+
+  .stage {
+    width: 100vw !important;
+    height: 100svh !important;
+    height: 100dvh !important;
+    min-height: 100svh !important;
+    min-height: 100dvh !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: block !important;
+    place-items: unset !important;
+    overflow: hidden !important;
+    background: #061426 !important;
+  }
+
+  .start-mockup,
+  .phone-shell {
+    width: 100vw !important;
+    height: 100svh !important;
+    height: 100dvh !important;
+    min-height: 100svh !important;
+    min-height: 100dvh !important;
+    max-width: none !important;
+    max-height: none !important;
+    aspect-ratio: auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background: #061426 !important;
+    overflow: hidden !important;
+    filter: none !important;
+  }
+
+  .start-mockup { display: none !important; position: relative !important; }
+  .start-mockup.is-active { display: block !important; }
+  .phone-shell { display: none !important; }
+  .phone-shell.is-active { display: block !important; }
+
+  .start-mockup .mobile-start-ui {
+    display: block !important;
+    position: relative !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100svh !important;
+    height: 100dvh !important;
+    min-height: 100svh !important;
+    min-height: 100dvh !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    overflow: hidden !important;
+    background-color: #061426 !important;
+    background-image: url("assets/start-screen-mobile-clean.png") !important;
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+    background-size: 100% 100% !important;
+  }
+
+  .start-mockup .mobile-start-inner {
+    width: 100vw !important;
+    height: 100svh !important;
+    height: 100dvh !important;
+    min-height: 100svh !important;
+    min-height: 100dvh !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: block !important;
+    overflow: hidden !important;
+    background: transparent !important;
+  }
+
+  .start-mockup .mobile-start-top,
+  .start-mockup .mobile-start-brand,
+  .start-mockup .mobile-start-copy,
+  .start-mockup .mobile-start-hero,
+  .start-mockup .mobile-start-features,
+  .start-mockup .mobile-start-note {
+    display: none !important;
+  }
+
+  .start-mockup .mobile-start-btn {
+    position: absolute !important;
+    left: 7.6vw !important;
+    top: 84.0vh !important;
+    top: 84.0dvh !important;
+    width: 84.8vw !important;
+    height: 5.8vh !important;
+    height: 5.8dvh !important;
+    min-height: 42px !important;
+    max-height: 72px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: 0 !important;
+    border-radius: 999px !important;
+    background: transparent !important;
+    color: transparent !important;
+    box-shadow: none !important;
+    opacity: 1 !important;
+    z-index: 50 !important;
+  }
+
+  .phone-screen {
+    position: relative !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100svh !important;
+    height: 100dvh !important;
+    min-height: 100svh !important;
+    min-height: 100dvh !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    overflow: hidden !important;
+    background: radial-gradient(circle at 50% 0%, #0d304a 0%, #071c31 34%, #030b16 100%) !important;
+  }
+
+  .status-bar {
+    height: calc(34px + env(safe-area-inset-top)) !important;
+    padding-top: env(safe-area-inset-top) !important;
+    padding-left: calc(16px + env(safe-area-inset-left)) !important;
+    padding-right: calc(16px + env(safe-area-inset-right)) !important;
+  }
+
+  .phone-screen .screen {
+    width: 100% !important;
+    height: calc(100svh - 34px - env(safe-area-inset-top)) !important;
+    height: calc(100dvh - 34px - env(safe-area-inset-top)) !important;
+    max-height: calc(100dvh - 34px - env(safe-area-inset-top)) !important;
+    min-height: 0 !important;
+    padding-left: calc(14px + env(safe-area-inset-left)) !important;
+    padding-right: calc(14px + env(safe-area-inset-right)) !important;
+    padding-bottom: calc(18px + env(safe-area-inset-bottom)) !important;
+    overflow: hidden !important;
+  }
+
+  .phone-screen .screen.scrollable {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .menu-preview {
+    left: calc(14px + env(safe-area-inset-left)) !important;
+    right: calc(14px + env(safe-area-inset-right)) !important;
+    bottom: calc(14px + env(safe-area-inset-bottom)) !important;
   }
 }

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>QFit Journal v49 — Start Page Fix</title>
+  <title>QFit Journal v50 — Mobile Layout Restore</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="assets/icon-192.png" />
   <link rel="manifest" href="manifest.json?v=49" />
@@ -19,7 +19,7 @@
   </style>
   <link rel="stylesheet" href="styles.css?v=49" />
   <script>
-    // v49: cache-clean helper. Does not touch localStorage data.
+    // v50: cache-clean helper. Does not touch localStorage data.
     if (new URLSearchParams(location.search).has('clear')) {
       if ('caches' in window) caches.keys().then(keys => Promise.all(keys.map(key => caches.delete(key))));
       if ('serviceWorker' in navigator) navigator.serviceWorker.getRegistrations().then(regs => regs.forEach(reg => reg.unregister()));

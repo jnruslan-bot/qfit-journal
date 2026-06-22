@@ -1,4 +1,4 @@
-const CACHE_NAME = 'qfit-journal-v49-start-page-fix';
+const CACHE_NAME = 'qfit-journal-v50-start-page-fix';
 const ASSETS = [
   './',
   './index.html?v=49',
@@ -11,7 +11,8 @@ const ASSETS = [
   './assets/qfit-logo.svg',
   './assets/icon-192.png',
   './assets/icon-512.png',
-  './assets/start-screen-mobile.png'
+  './assets/start-screen-mobile.png',
+  './assets/start-screen-mobile-clean.png'
 ];
 
 self.addEventListener('install', (event) => {
