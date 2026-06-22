@@ -1,29 +1,21 @@
-// Версия кэша берётся из строки запроса при регистрации (?v=NN),
-// поэтому достаточно один раз поменять номер версии в index.html —
-// и sw.js, и manifest.json, и сам кэш всегда останутся синхронны.
-const SW_URL = new URL(self.location.href);
-const VERSION = SW_URL.searchParams.get('v') || 'dev';
-const CACHE_NAME = `qfit-journal-v${VERSION}`;
-
-const ASSETS = [
+const CACHE_NAME = 'qfit-journal-v57-restore-landing';
+const APP_SHELL = [
   './',
-  `./index.html?v=${VERSION}`,
-  `./styles.css?v=${VERSION}`,
-  `./app.js?v=${VERSION}`,
-  `./manifest.json?v=${VERSION}`,
-  './assets/app-icon.svg',
-  './assets/favicon.svg',
-  './assets/gym-bg.svg',
+  './index.html?v=57',
+  './styles.css?v=57',
+  './app.js?v=57',
+  './manifest.json?v=57',
+  './assets/qfit-wordmark.svg',
   './assets/qfit-logo.svg',
+  './assets/gym-bg.svg',
   './assets/icon-192.png',
   './assets/icon-512.png',
-  './assets/start-screen-mobile.png',
-  './assets/start-screen-mobile-clean.png'
+  './assets/favicon.svg'
 ];
 
 self.addEventListener('install', (event) => {
-  event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS)));
   self.skipWaiting();
+  event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL)));
 });
 
 self.addEventListener('activate', (event) => {
@@ -35,22 +27,29 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-  if (event.request.method !== 'GET') return;
   const request = event.request;
-  const isNavigation = request.mode === 'navigate' || (request.headers.get('accept') || '').includes('text/html');
+  if (request.method !== 'GET') return;
+  const url = new URL(request.url);
+  if (url.origin !== self.location.origin) return;
+
+  if (request.mode === 'navigate') {
+    event.respondWith(
+      fetch(request).then((response) => {
+        const copy = response.clone();
+        caches.open(CACHE_NAME).then((cache) => cache.put('./index.html?v=57', copy));
+        return response;
+      }).catch(() => caches.match('./index.html?v=57').then((cached) => cached || caches.match('./')))
+    );
+    return;
+  }
 
   event.respondWith(
-    fetch(request)
-      .then((response) => {
+    fetch(request).then((response) => {
+      if (response && response.status === 200) {
         const copy = response.clone();
         caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
-        return response;
-      })
-      .catch(() => {
-        if (isNavigation) {
-          return caches.match(`./index.html?v=${VERSION}`).then((cached) => cached || caches.match('./'));
-        }
-        return caches.match(request);
-      })
+      }
+      return response;
+    }).catch(() => caches.match(request))
   );
 });

@@ -2,7 +2,7 @@
   "name": "QFit Journal",
   "short_name": "QFit",
   "description": "Цифровой дневник тренировок, программ и прогресса.",
-  "start_url": "./index.html?v=50",
+  "start_url": "./index.html?v=57",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",

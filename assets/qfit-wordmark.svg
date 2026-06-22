@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 220" role="img" aria-label="QFit Journal">
+  <defs>
+    <linearGradient id="qg" x1="20" y1="25" x2="315" y2="190" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#92fff4"/>
+      <stop offset="0.55" stop-color="#2bd8ed"/>
+      <stop offset="1" stop-color="#0b84bd"/>
+    </linearGradient>
+    <linearGradient id="tg" x1="240" y1="92" x2="720" y2="145" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7efff1"/>
+      <stop offset="0.22" stop-color="#69f5ef"/>
+      <stop offset="0.29" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#ffffff"/>
+    </linearGradient>
+    <filter id="glow" x="-15%" y="-22%" width="130%" height="148%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0.08 0 0 0 0 0.92 0 0 0 0 1 0 0 0 .32 0"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <g filter="url(#glow)">
+    <g fill="url(#qg)">
+      <rect x="12" y="96" width="18" height="58" rx="6"/>
+      <rect x="42" y="76" width="28" height="98" rx="8"/>
+      <rect x="83" y="104" width="16" height="42" rx="6" opacity=".82"/>
+      <path d="M170 40c-54 0-98 44-98 98s44 98 98 98c18 0 35-5 50-13l-39-47h-39l56 68c-9 3-18 5-28 5-45 0-82-37-82-82s37-82 82-82 82 37 82 82c0 19-6 36-17 50l31 38c19-23 30-53 30-86 0-54-44-98-98-98h-28z" transform="scale(.82) translate(38 -8)"/>
+      <rect x="263" y="104" width="16" height="42" rx="6" opacity=".82"/>
+      <rect x="292" y="76" width="28" height="98" rx="8"/>
+      <rect x="333" y="96" width="18" height="58" rx="6"/>
+    </g>
+    <text x="240" y="146" fill="url(#tg)" font-family="Inter, Arial, sans-serif" font-size="76" font-weight="900" letter-spacing="-5">QFit Journal</text>
+  </g>
+</svg>

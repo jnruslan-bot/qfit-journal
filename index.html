@@ -3,23 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>QFit Journal v50 — Mobile Layout Restore</title>
+  <title>QFit Journal v57 — Restore Landing</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="assets/icon-192.png" />
-  <link rel="manifest" href="manifest.json?v=50" />
+  <link rel="manifest" href="manifest.json?v=57" />
   <meta name="theme-color" content="#061426" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-title" content="QFit Journal" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-  <style>
-    /* v47 аварийный стиль: старт — HTML/CSS, без PNG-макета телефона */
-    .start-mockup-img,.hotspot-start{display:none!important;}
-    .mobile-start-ui{display:block!important;}
-  </style>
-  <link rel="stylesheet" href="styles.css?v=50" />
+  <link rel="stylesheet" href="styles.css?v=57" />
   <script>
-    // v50: cache-clean helper. Does not touch localStorage data.
+    // v55: cache-clean helper. Does not touch localStorage data.
     if (new URLSearchParams(location.search).has('clear')) {
       if ('caches' in window) caches.keys().then(keys => Promise.all(keys.map(key => caches.delete(key))));
       if ('serviceWorker' in navigator) navigator.serviceWorker.getRegistrations().then(regs => regs.forEach(reg => reg.unregister()));
@@ -31,14 +26,8 @@
     <section class="start-mockup is-active" id="startScreen" aria-label="Стартовый экран QFit Journal">
       <div class="mobile-start-ui">
         <div class="mobile-start-inner">
-          <div class="mobile-start-top">
-            <span>9:41</span>
-            <span>▮▮▮ 5G ▱</span>
-          </div>
-
           <div class="mobile-start-brand">
-            <img src="assets/qfit-logo.svg" alt="" class="mobile-start-logo" />
-            <h1><span>QFit</span> Journal</h1>
+            <img src="assets/qfit-wordmark.svg" alt="QFit Journal" class="mobile-start-logo" />
             <i></i>
           </div>
 
@@ -294,7 +283,7 @@
     </section>
   </main>
   <datalist id="exerciseOptions"></datalist>
-  <script src="app.js?v=50"></script>
+  <script src="app.js?v=57"></script>
   <script>
     (function () {
       const params = new URLSearchParams(location.search);
@@ -305,14 +294,14 @@
         ]).then(() => {
           params.delete('clear');
           params.delete('resetCache');
-          params.set('v', '50');
+          params.set('v', '56');
           location.replace(location.pathname + '?' + params.toString());
         });
       }
     })();
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=50').catch((error) => console.warn('Service worker registration failed:', error));
+        navigator.serviceWorker.register('./sw.js?v=57').catch((error) => console.warn('Service worker registration failed:', error));
       });
     }
   </script>
