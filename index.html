@@ -3,21 +3,28 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>QFit Journal v44 — No Mockup Cache Fix</title>
+  <title>QFit Journal v48 — Start Button Fix</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="assets/icon-192.png" />
-  <link rel="manifest" href="manifest.json?v=44" />
+  <link rel="manifest" href="manifest.json?v=48" />
   <meta name="theme-color" content="#061426" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-title" content="QFit Journal" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
   <style>
-    /* v44 аварийный стиль: старт больше не PNG-макет телефона */
+    /* v47 аварийный стиль: старт — HTML/CSS, без PNG-макета телефона */
     .start-mockup-img,.hotspot-start{display:none!important;}
     .mobile-start-ui{display:block!important;}
   </style>
-  <link rel="stylesheet" href="styles.css?v=44" />
+  <link rel="stylesheet" href="styles.css?v=48" />
+  <script>
+    // v48: cache-clean helper. Does not touch localStorage data.
+    if (new URLSearchParams(location.search).has('clear')) {
+      if ('caches' in window) caches.keys().then(keys => Promise.all(keys.map(key => caches.delete(key))));
+      if ('serviceWorker' in navigator) navigator.serviceWorker.getRegistrations().then(regs => regs.forEach(reg => reg.unregister()));
+    }
+  </script>
 </head>
 <body>
   <main class="stage">
@@ -48,7 +55,7 @@
             <div><strong>↗</strong><span>Отслеживайте<br>прогресс</span></div>
           </div>
 
-          <button class="mobile-start-btn" type="button" onclick="if (typeof openApp === 'function') openApp();">Начать</button>
+          <button class="mobile-start-btn" id="startBtn" type="button">Начать</button>
 
           <div class="mobile-start-note">▯ Сначала для телефона. В дальнейшем — веб-версия.</div>
         </div>
@@ -287,11 +294,25 @@
     </section>
   </main>
   <datalist id="exerciseOptions"></datalist>
-  <script src="app.js?v=44"></script>
+  <script src="app.js?v=48"></script>
   <script>
+    (function () {
+      const params = new URLSearchParams(location.search);
+      if (params.has('clear') || params.has('resetCache')) {
+        Promise.all([
+          'caches' in window ? caches.keys().then(keys => Promise.all(keys.map(key => caches.delete(key)))) : Promise.resolve(),
+          'serviceWorker' in navigator ? navigator.serviceWorker.getRegistrations().then(regs => Promise.all(regs.map(reg => reg.unregister()))) : Promise.resolve()
+        ]).then(() => {
+          params.delete('clear');
+          params.delete('resetCache');
+          params.set('v', '46');
+          location.replace(location.pathname + '?' + params.toString());
+        });
+      }
+    })();
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js').catch((error) => console.warn('Service worker registration failed:', error));
+        navigator.serviceWorker.register('./sw.js?v=46').catch((error) => console.warn('Service worker registration failed:', error));
       });
     }
   </script>

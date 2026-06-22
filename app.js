@@ -1101,7 +1101,7 @@ function resetDb() {
 }
 function markUnsaved() { if (saveState) saveState.textContent = 'не сохранено'; }
 
-$('startBtn').addEventListener('click', openApp);
+if ($('startBtn')) $('startBtn').addEventListener('click', openApp);
 $('profileBackBtn').addEventListener('click', goStart);
 $('menuBackBtn').addEventListener('click', () => APP_MODE === 'admin' ? showOnly(profileScreen) : goStart());
 $('todayBackBtn').addEventListener('click', () => showOnly(menuScreen));
