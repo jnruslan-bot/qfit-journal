@@ -1666,3 +1666,230 @@ html, body {
   .mobile-start-btn { min-height: 44px !important; font-size: 17px !important; }
   .mobile-start-note { font-size: 10px !important; }
 }
+
+
+/* =========================================================
+   v49 — START PAGE RESTORE FIX
+   Исправляет испорченный первый экран: вместо конфликтующего
+   HTML-лейаута используем стабильный стартовый арт как фон.
+   Кнопка "Начать" остаётся настоящей кнопкой поверх изображения.
+   Не влияет на внутренние экраны приложения после входа.
+   ========================================================= */
+
+.start-mockup-img,
+.hotspot,
+.hotspot-start,
+.hotspot-login {
+  display: none !important;
+  pointer-events: none !important;
+}
+
+.mobile-start-ui,
+.mobile-start-ui * {
+  font-family: Inter, "Segoe UI", Arial, sans-serif !important;
+}
+
+.start-mockup .mobile-start-ui {
+  display: block !important;
+  position: relative !important;
+  inset: auto !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  border-radius: 34px !important;
+  overflow: hidden !important;
+  background-color: #061426 !important;
+  background-image: url("assets/start-screen-mobile.png") !important;
+  background-repeat: no-repeat !important;
+  background-position: center center !important;
+  background-size: 100% 100% !important;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.06) !important;
+}
+
+.start-mockup .mobile-start-inner {
+  position: relative !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: block !important;
+  overflow: hidden !important;
+}
+
+.start-mockup .mobile-start-top,
+.start-mockup .mobile-start-brand,
+.start-mockup .mobile-start-copy,
+.start-mockup .mobile-start-hero,
+.start-mockup .mobile-start-features,
+.start-mockup .mobile-start-note,
+.start-mockup .mobile-start-inner::before,
+.start-mockup .mobile-start-inner::after {
+  display: none !important;
+  content: none !important;
+}
+
+.start-mockup .mobile-start-btn {
+  position: absolute !important;
+  left: 7.6% !important;
+  top: 84.0% !important;
+  width: 84.8% !important;
+  height: 5.6% !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: transparent !important;
+  text-shadow: none !important;
+  opacity: 1 !important;
+  z-index: 20 !important;
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(104,255,245,.22) !important;
+}
+
+.start-mockup .mobile-start-btn:focus-visible {
+  outline: 3px solid rgba(104,255,245,.65) !important;
+  outline-offset: 3px !important;
+}
+
+/* Desktop/web: аккуратный телефон по центру */
+@media (min-width: 769px) {
+  html,
+  body {
+    width: 100% !important;
+    min-height: 100% !important;
+    height: auto !important;
+    overflow: auto !important;
+    position: static !important;
+    background: radial-gradient(circle at 50% 28%, #f7fbfd 0%, #edf4f8 48%, #e5edf2 100%) !important;
+  }
+
+  .stage {
+    width: 100% !important;
+    min-height: 100vh !important;
+    height: auto !important;
+    padding: 14px !important;
+    display: grid !important;
+    place-items: center !important;
+    overflow: visible !important;
+    background: transparent !important;
+  }
+
+  .start-mockup,
+  .phone-shell {
+    width: min(410px, 96vw) !important;
+    height: min(844px, 96vh) !important;
+    max-width: 410px !important;
+    max-height: 844px !important;
+    aspect-ratio: 390 / 844 !important;
+    padding: 10px !important;
+    margin: 0 !important;
+    border-radius: 44px !important;
+    background: linear-gradient(145deg, #151a20, #040608 45%, #343940) !important;
+    box-shadow: 0 36px 90px rgba(3,16,28,.24), 0 10px 24px rgba(2,8,15,.25), inset 0 0 0 1px rgba(255,255,255,.08) !important;
+    overflow: hidden !important;
+    filter: none !important;
+  }
+
+  .start-mockup { display: none !important; position: relative !important; }
+  .start-mockup.is-active { display: block !important; }
+  .phone-shell { display: none !important; }
+  .phone-shell.is-active { display: block !important; }
+
+  .phone-screen {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 34px !important;
+    overflow: hidden !important;
+  }
+}
+
+/* Phone/PWA: полный экран без белых полей и без сжатого текста */
+@media (max-width: 768px) {
+  html,
+  body {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100dvh !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    position: fixed !important;
+    inset: 0 !important;
+    background: #061426 !important;
+    overscroll-behavior: none !important;
+  }
+
+  .stage {
+    width: 100vw !important;
+    height: 100dvh !important;
+    min-height: 100dvh !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: block !important;
+    overflow: hidden !important;
+    background: #061426 !important;
+  }
+
+  .start-mockup,
+  .phone-shell {
+    width: 100vw !important;
+    height: 100dvh !important;
+    max-width: none !important;
+    max-height: none !important;
+    aspect-ratio: auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background: #061426 !important;
+    overflow: hidden !important;
+    filter: none !important;
+  }
+
+  .start-mockup { display: none !important; position: relative !important; }
+  .start-mockup.is-active { display: block !important; }
+  .phone-shell { display: none !important; }
+  .phone-shell.is-active { display: block !important; }
+
+  .start-mockup .mobile-start-ui {
+    width: 100vw !important;
+    height: 100dvh !important;
+    min-height: 100dvh !important;
+    border-radius: 0 !important;
+  }
+
+  .phone-screen {
+    width: 100vw !important;
+    height: 100dvh !important;
+    min-height: 100dvh !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    overflow: hidden !important;
+  }
+
+  .status-bar {
+    height: calc(34px + env(safe-area-inset-top)) !important;
+    padding-top: env(safe-area-inset-top) !important;
+    padding-left: calc(16px + env(safe-area-inset-left)) !important;
+    padding-right: calc(16px + env(safe-area-inset-right)) !important;
+  }
+
+  .phone-screen .screen {
+    width: 100% !important;
+    height: calc(100dvh - 34px - env(safe-area-inset-top)) !important;
+    max-height: calc(100dvh - 34px - env(safe-area-inset-top)) !important;
+    padding-left: calc(14px + env(safe-area-inset-left)) !important;
+    padding-right: calc(14px + env(safe-area-inset-right)) !important;
+    padding-bottom: calc(18px + env(safe-area-inset-bottom)) !important;
+  }
+
+  .phone-screen .screen.scrollable {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+}

@@ -1,16 +1,17 @@
-const CACHE_NAME = 'qfit-journal-v48-start-button-fix';
+const CACHE_NAME = 'qfit-journal-v49-start-page-fix';
 const ASSETS = [
   './',
-  './index.html?v=48',
-  './styles.css?v=48',
-  './app.js?v=48',
-  './manifest.json?v=48',
+  './index.html?v=49',
+  './styles.css?v=49',
+  './app.js?v=49',
+  './manifest.json?v=49',
   './assets/app-icon.svg',
   './assets/favicon.svg',
   './assets/gym-bg.svg',
   './assets/qfit-logo.svg',
   './assets/icon-192.png',
-  './assets/icon-512.png'
+  './assets/icon-512.png',
+  './assets/start-screen-mobile.png'
 ];
 
 self.addEventListener('install', (event) => {
@@ -39,7 +40,7 @@ self.addEventListener('fetch', (event) => {
         return response;
       })
       .catch(() => {
-        if (isNavigation) return caches.match('./index.html?v=48').then((cached) => cached || caches.match('./'));
+        if (isNavigation) return caches.match('./index.html?v=49').then((cached) => cached || caches.match('./'));
         return caches.match(request);
       })
   );
